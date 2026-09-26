@@ -1,0 +1,6 @@
+.env
+data/synthetic.db
+data/telemetry.db
+data/codegen_telemetry.db
+__pycache__/
+*.pyc

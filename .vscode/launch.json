@@ -1,0 +1,62 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Code Generator (CLI)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "codegen.generate",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "${input:codegenTask}",
+                "--lang",
+                "${input:codegenLang}"
+            ]
+        },
+        {
+            "name": "English -> SQL (CLI)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "nl2sql.generate",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "${input:nl2sqlQuestion}"
+            ]
+        },
+        {
+            "name": "Dashboard (Streamlit)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "run",
+                "dashboard/app.py"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "codegenTask",
+            "type": "promptString",
+            "description": "Task description for the code generator",
+            "default": "Write a function that reverses a string."
+        },
+        {
+            "id": "codegenLang",
+            "type": "pickString",
+            "description": "Target language",
+            "options": ["python", "javascript", "java", "c", "cpp", "sql"],
+            "default": "python"
+        },
+        {
+            "id": "nl2sqlQuestion",
+            "type": "promptString",
+            "description": "English question to translate to SQL",
+            "default": "List all customers from Austin."
+        }
+    ]
+}

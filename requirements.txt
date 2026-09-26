@@ -1,0 +1,6 @@
+streamlit>=1.60
+altair>=5
+pandas>=2
+groq>=1.7
+python-dotenv>=1.0
+pyflakes>=3.2

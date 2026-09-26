@@ -1,0 +1,54 @@
+[
+  {
+    "question": "List the names and emails of all customers from Austin.",
+    "gold_sql": "SELECT name, email FROM customers WHERE city = 'Austin';",
+    "pattern": "single_table_filter"
+  },
+  {
+    "question": "How many products are in the Electronics category?",
+    "gold_sql": "SELECT COUNT(*) FROM products WHERE category = 'Electronics';",
+    "pattern": "aggregation"
+  },
+  {
+    "question": "What is the total quantity ordered for each product?",
+    "gold_sql": "SELECT p.name, SUM(oi.quantity) AS total_quantity FROM products p JOIN order_items oi ON p.product_id = oi.product_id GROUP BY p.product_id, p.name;",
+    "pattern": "join_group_by"
+  },
+  {
+    "question": "List all orders that are still pending, most recent first.",
+    "gold_sql": "SELECT order_id, customer_id, order_date FROM orders WHERE status = 'pending' ORDER BY order_date DESC;",
+    "pattern": "filter_order_by"
+  },
+  {
+    "question": "Which customers have never placed an order?",
+    "gold_sql": "SELECT c.name FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.order_id IS NULL;",
+    "pattern": "left_join_null_filter"
+  },
+  {
+    "question": "What is the average unit price of products in each category?",
+    "gold_sql": "SELECT category, AVG(unit_price) AS avg_price FROM products GROUP BY category;",
+    "pattern": "aggregation_group_by"
+  },
+  {
+    "question": "Find the top 5 customers by number of orders placed.",
+    "gold_sql": "SELECT c.name, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name ORDER BY order_count DESC LIMIT 5;",
+    "pattern": "join_group_by_order_limit"
+  },
+  {
+    "question": "List order items along with the product name and category for order 1.",
+    "gold_sql": "SELECT oi.order_item_id, p.name, p.category, oi.quantity FROM order_items oi JOIN products p ON oi.product_id = p.product_id WHERE oi.order_id = 1;",
+    "pattern": "multi_join_filter"
+  },
+  {
+    "question": "What percentage discount does each customer get based on loyalty tier?",
+    "gold_sql": null,
+    "expected": "OUT_OF_SCOPE",
+    "pattern": "out_of_scope_no_column"
+  },
+  {
+    "question": "What is the current weather in the cities where our customers live?",
+    "gold_sql": null,
+    "expected": "OUT_OF_SCOPE",
+    "pattern": "out_of_scope_external_data"
+  }
+]
